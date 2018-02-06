@@ -51,7 +51,7 @@ namespace NextSugarCat.Persistance
 
             Photo photo = new Photo()
             {
-                FileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName),
+                FileName = file.FileName,
                 Data = ms.ToArray(),
                 ContentType = file.ContentType,
                 Length = file.Length

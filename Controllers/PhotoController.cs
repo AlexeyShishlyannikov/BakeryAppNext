@@ -32,6 +32,11 @@ namespace NextSugarCat.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos(int itemId)
         {
+            var item = await menuRepository.GetMenuItem(itemId);
+            if (item == null)
+            {
+                return NotFound("Item with this ID is not present in database");
+            }
             var photos = await photoRepository.GetPhotosAsync(itemId);
 
             if (photos == null)

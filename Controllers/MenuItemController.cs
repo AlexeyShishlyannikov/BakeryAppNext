@@ -53,7 +53,7 @@ namespace NextSugarCat.Controllers
             var item = await menuRepository.GetMenuItem(id);
 
             if (item == null)
-                return NotFound();
+                return NotFound("Item with this id is not present in database");
 
             return Ok(mapper.Map<MenuItem, MenuItemDTO>(item));
         }
