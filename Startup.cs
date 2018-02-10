@@ -29,6 +29,8 @@ namespace BakeryWebApi
         {
             services.AddAutoMapper();
 
+            services.AddCors();
+            
             services.AddScoped<IMenuRepository, MenuRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -61,7 +63,7 @@ namespace BakeryWebApi
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidIssuer = Configuration["JwtIssuer"],
-                    ValidAudience = Configuration["JwtIssuer"],
+                    ValidAudience = Configuration["JwtAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
                     ClockSkew = TimeSpan.Zero
                 };
@@ -80,6 +82,8 @@ namespace BakeryWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseStaticFiles();
 

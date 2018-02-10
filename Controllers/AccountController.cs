@@ -55,7 +55,7 @@ namespace NextSugarCat.Controllers
             if (result.Succeeded)
             {
                 var appUser = userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return Ok(GenerateJwtToken(model.Email, appUser));
+                return Ok(await GenerateJwtToken(model.Email, appUser));
             }
 
             //throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
@@ -84,7 +84,7 @@ namespace NextSugarCat.Controllers
 
             await signInManager.SignInAsync(user, false);
             //return Ok(result1);
-            return Ok(GenerateJwtToken(model.Email, user));
+            return Ok(await GenerateJwtToken(model.Email, user));
         }
 
         private async Task<object> GenerateJwtToken(string email, IdentityUser user)
@@ -106,13 +106,16 @@ namespace NextSugarCat.Controllers
             var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
             var token = new JwtSecurityToken(
                 configuration["JwtIssuer"],
-                configuration["JwtIssuer"],
+                configuration["JwtAudience"],
                 claims.ToArray(),
                 expires: expires,
                 signingCredentials: creds
             );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var tokenObject = new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token)
+            };
+            return tokenObject;
         }
     }
 }
