@@ -9,6 +9,7 @@ namespace NextSugarCat.Controllers.Resources
         public int ClientId { get; set; }
         public ClientDTO Client { get; set; }
         public ICollection<MenuItemDTO> MenuItems { get; set; }
+        public bool Delivered { get; set; }
 
         public OrderDTO()
         {

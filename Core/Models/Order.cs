@@ -10,10 +10,8 @@ namespace NextSugarCat.Core.Models
         public int Id { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }
-        public string IdentityId { get; set; }
-        public IdentityUser Identity{ get; set; }
         public ICollection<OrderMenuItem> MenuItems { get; set; }
-
+        public bool Delivered { get; set; }
         public Order()
         {
             MenuItems = new Collection<OrderMenuItem>();

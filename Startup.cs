@@ -42,7 +42,15 @@ namespace BakeryWebApi
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             // Adding and Initializing Identity Framework
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequiredUniqueChars = 2;
+                })
                 .AddEntityFrameworkStores<BakeryDbContext>()
                 .AddDefaultTokenProviders();
             // Add Jwt Authentication to the App

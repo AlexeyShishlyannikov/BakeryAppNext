@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180211005241_AddPhoneToRegistration.cs" />
+    <Compile Remove="Migrations\20180211005241_AddPhoneToRegistration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

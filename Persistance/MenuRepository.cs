@@ -34,14 +34,15 @@ namespace NextSugarCat.Persistance
         {
             context.Remove(item);
         }
-        public async Task<ICollection<MenuItem>> GetMenu()
+        public async Task<List<MenuItem>> GetMenu()
         {
             return await context.MenuItems
                 .Include(i => i.Ingredients)
                     .ThenInclude(mi => mi.Ingredient)
                 .Include(i => i.Price)
+                    .ThenInclude(p => p.PricePerSet)
                 .Include(i => i.Photos)
-                .ToArrayAsync();
+                .ToListAsync();
         }
     }
 }

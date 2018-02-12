@@ -11,6 +11,6 @@ namespace NextSugarCat.Core
         Task<MenuItem> GetMenuItem(int id);
         Task Add(MenuItem item);
         void Remove(MenuItem item);
-        Task<ICollection<MenuItem>> GetMenu();
+        Task<List<MenuItem>> GetMenu();
     }
 }

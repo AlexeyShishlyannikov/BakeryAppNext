@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BakeryWebApi.Controllers.Resources;
 using Microsoft.AspNetCore.Identity;
 using NextSugarCat.Controllers.Resources;
 using NextSugarCat.Core.Models;
@@ -22,12 +21,11 @@ namespace NextSugarCat.Mapping
             CreateMap<MenuItemPrice, CakePriceDTO>();
             CreateMap<MenuItemPrice, SetPriceDTO>();
             CreateMap<ItemPricePerSet, ItemPricePerSetDTO>();
-            CreateMap<Photo, ItemPhotoDTO>();
-
+            //CreateMap<Photo, ItemPhotoDTO>();
+            //.ForMember(ir => ir.Photos, opt => opt.MapFrom(i => i.Photos.Select(ir => new ItemPhotoDTO { FileName = ir.FileName, Length = ir.Length, Id = ir.Id, ContentType = ir.ContentType })))
             CreateMap<MenuItem, MenuItemDTO>()
                 .ForMember(ir => ir.Ingredients, opt => opt.MapFrom(i => i.Ingredients.Select(ir => new IngredientDTO { Id = ir.Ingredient.Id, Name = ir.Ingredient.Name, Description = ir.Ingredient.Description})))
                 .ForMember(ir => ir.Price, opt => opt.Ignore())
-                .ForMember(ir => ir.Photos, opt => opt.MapFrom(i => i.Photos.Select(ir => new ItemPhotoDTO { FileName = ir.FileName, Length = ir.Length, Id = ir.Id, ContentType = ir.ContentType})))
                 .AfterMap((mi, mir) =>
                 {
                     switch (mi.Type)
@@ -98,6 +96,9 @@ namespace NextSugarCat.Mapping
                 .ForMember(c => c.Identity, opt => opt.Ignore())
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<RegisterDTO, IdentityUser>();
+            CreateMap<ClientDTO, Client>()
+                .ForMember(c => c.Identity, opt => opt.Ignore())
+                .ForMember(c => c.IdentityId, opt => opt.Ignore());
         }
     }
 }

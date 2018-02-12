@@ -1,6 +1,4 @@
-﻿using BakeryWebApi.Controllers.Resources;
-using NextSugarCat.Core.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace NextSugarCat.Controllers.Resources
@@ -13,12 +11,12 @@ namespace NextSugarCat.Controllers.Resources
         public int? MinimumWeight { get; set; }
         public string Description { get; set; }
         public object Price { get; set; }
-        public ICollection<ItemPhotoDTO> Photos { get; set; }
+        public ICollection<PhotoDTO> Photos { get; set; }
         public ICollection<IngredientDTO> Ingredients { get; set; }
         public MenuItemDTO()
         {
             Ingredients = new Collection<IngredientDTO>();
-            Photos = new Collection<ItemPhotoDTO>();
+            Photos = new Collection<PhotoDTO>();
         }
     }
 }

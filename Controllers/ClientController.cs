@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NextSugarCat.Controllers.Resources;
 using NextSugarCat.Core;
@@ -18,7 +20,8 @@ namespace NextSugarCat.Controllers
         public ClientController(
             IMapper mapper,
             IClientRepository clientRepository,
-            IUnitOfWork unitOfWork
+            IUnitOfWork unitOfWork,
+            UserManager<IdentityUser> userManager
             )
         {
             this.mapper = mapper;
@@ -39,7 +42,7 @@ namespace NextSugarCat.Controllers
 
             return Ok(clientResource);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllClients()
         {

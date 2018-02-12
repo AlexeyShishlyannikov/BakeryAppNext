@@ -22,14 +22,14 @@ namespace NextSugarCat.Persistance
             return await context.Orders
                 .Include(o => o.Client)
                 .Include(o => o.MenuItems)
-                .SingleOrDefaultAsync(o => o.IdentityId == id);
+                .SingleOrDefaultAsync(o => o.Client.IdentityId == id);
         }
 
         public async Task<ICollection<Order>> GetUserOrdersAsync(string id)
         {
             return await context.Orders
-                .Where(o => o.IdentityId == id)
                 .Include(o => o.Client)
+                .Where(o => o.Client.IdentityId == id)
                 .Include(o => o.MenuItems)
                 .ToArrayAsync();
         }

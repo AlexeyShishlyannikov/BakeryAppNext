@@ -18,7 +18,7 @@ namespace NextSugarCat.Persistance
         {
             return await context.Clients
                 .Include(c => c.Identity)
-                .SingleOrDefaultAsync(c => c.IdentityId == id);
+                .SingleOrDefaultAsync(c => c.Identity.Id == id);
         }
 
         public async Task<ICollection<Client>> GetClientsAsync()

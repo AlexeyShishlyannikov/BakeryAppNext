@@ -62,7 +62,13 @@ namespace NextSugarCat.Controllers
         public async Task<IActionResult> GetMenu()
         {
             var menu = await menuRepository.GetMenu();
-
+            
+            for(int i = 0; i< menu.Count; i++)
+            {
+                var photo = menu[i].Photos[0];
+                menu[i].Photos.Clear();
+                menu[i].Photos.Add(photo);
+            }
             return Ok(mapper.Map<IEnumerable<MenuItem>, IEnumerable<MenuItemDTO>>(menu));
         }
 

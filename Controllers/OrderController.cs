@@ -40,7 +40,7 @@ namespace NextSugarCat.Controllers
             await orderRepository.AddAsync(order);
             await unitOfWork.SaveChangesAsync();
 
-            order = await orderRepository.GetOrderAsync(order.IdentityId);
+            order = await orderRepository.GetOrderAsync(order.Client.IdentityId);
 
             var result = mapper.Map<Order, OrderDTO>(order);
 

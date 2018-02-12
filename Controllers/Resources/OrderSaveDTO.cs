@@ -12,7 +12,7 @@ namespace NextSugarCat.Controllers.Resources
         public int ClientId { get; set; }
         public ClientDTO Client { get; set; }
         public ICollection<int> MenuItems { get; set; }
-
+        public bool Delivered { get; set; }
         public OrderSaveDTO()
         {
             MenuItems = new Collection<int>();

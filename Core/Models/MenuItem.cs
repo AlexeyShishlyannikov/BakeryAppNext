@@ -15,12 +15,12 @@ namespace NextSugarCat.Core.Models
         public string Description { get; set; }
         public int? MinimumWeight { get; set; }
         public MenuItemPrice Price { get; set; }
-        public ICollection<Photo> Photos { get; set; }
-        public ICollection<MenuItemIngredient> Ingredients { get; set; }
+        public List<Photo> Photos { get; set; }
+        public List<MenuItemIngredient> Ingredients { get; set; }
         public MenuItem()
         {
-            Ingredients = new Collection<MenuItemIngredient>();
-            Photos = new Collection<Photo>();
+            Ingredients = new List<MenuItemIngredient>();
+            Photos = new List<Photo>();
         }
     }
 }

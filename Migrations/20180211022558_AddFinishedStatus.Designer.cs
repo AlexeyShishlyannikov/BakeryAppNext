@@ -11,9 +11,10 @@ using System;
 namespace NextSugarCat.Migrations
 {
     [DbContext(typeof(BakeryDbContext))]
-    partial class BakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180211022558_AddFinishedStatus")]
+    partial class AddFinishedStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,9 +334,13 @@ namespace NextSugarCat.Migrations
 
                     b.Property<bool>("Delivered");
 
+                    b.Property<string>("IdentityId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("IdentityId");
 
                     b.ToTable("Orders");
                 });
@@ -464,6 +469,10 @@ namespace NextSugarCat.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Identity")
+                        .WithMany()
+                        .HasForeignKey("IdentityId");
                 });
 
             modelBuilder.Entity("NextSugarCat.Core.Models.OrderMenuItem", b =>
