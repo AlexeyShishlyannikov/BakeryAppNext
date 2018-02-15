@@ -35,7 +35,6 @@ namespace BakeryWebApi
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IClientRepository, ClientsRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddDbContext<BakeryDbContext>(options =>
             {

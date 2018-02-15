@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using NextSugarCat.Controllers.Resources;
 using NextSugarCat.Core.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NextSugarCat.Mapping
@@ -21,8 +22,6 @@ namespace NextSugarCat.Mapping
             CreateMap<MenuItemPrice, CakePriceDTO>();
             CreateMap<MenuItemPrice, SetPriceDTO>();
             CreateMap<ItemPricePerSet, ItemPricePerSetDTO>();
-            //CreateMap<Photo, ItemPhotoDTO>();
-            //.ForMember(ir => ir.Photos, opt => opt.MapFrom(i => i.Photos.Select(ir => new ItemPhotoDTO { FileName = ir.FileName, Length = ir.Length, Id = ir.Id, ContentType = ir.ContentType })))
             CreateMap<MenuItem, MenuItemDTO>()
                 .ForMember(ir => ir.Ingredients, opt => opt.MapFrom(i => i.Ingredients.Select(ir => new IngredientDTO { Id = ir.Ingredient.Id, Name = ir.Ingredient.Name, Description = ir.Ingredient.Description})))
                 .ForMember(ir => ir.Price, opt => opt.Ignore())
@@ -44,8 +43,6 @@ namespace NextSugarCat.Mapping
                             break;
                     }
                 });
-            CreateMap<OrderMenuItem, MenuItemDTO>();
-            CreateMap<Order, OrderDTO>();
 
             CreateMap<Client, ClientDTO>()
                 .ForMember(dto => dto.Email, o => o.MapFrom(c => c.Identity.Email));
@@ -72,30 +69,15 @@ namespace NextSugarCat.Mapping
                     foreach (var ingredient in addedIngredients)
                         menuItem.Ingredients.Add(ingredient);
                 });
-            CreateMap<OrderSaveDTO, Order>()
-                .ForMember(item => item.Id, option => option.Ignore())
-                .ForMember(item => item.MenuItems, option => option.Ignore())
-                .AfterMap((saveDTO, order) =>
-                {
-                    // Remove unselected features
-                    var removedItems = order.MenuItems.Where(item => !saveDTO.MenuItems.Contains(item.MenuItemId));
-                    foreach (var item in removedItems.ToList())
-                        order.MenuItems.Remove(item);
 
-                    // Add New Ingredients
-                    var addedItems = saveDTO.MenuItems
-                        .Where(id => !order.MenuItems.Any(item => item.MenuItemId == id))
-                        .Select(id => new OrderMenuItem { MenuItemId = id });
-                    foreach (var item in addedItems)
-                        order.MenuItems.Add(item);
-                });
             CreateMap<MenuItemPriceDTO, MenuItemPrice>();
-            CreateMap<ItemPricePerSetDTO, ItemPricePerSet>();
+            CreateMap<ItemPricePerSetDTO, ItemPricePerSet>().ForMember(item => item.Id, option => option.Ignore());
             CreateMap<RegisterDTO, Client>()
                 .ForMember(c => c.IdentityId, opt => opt.Ignore())
                 .ForMember(c => c.Identity, opt => opt.Ignore())
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<RegisterDTO, IdentityUser>();
+            CreateMap<ContactsDTO, Contacts>();
             CreateMap<ClientDTO, Client>()
                 .ForMember(c => c.Identity, opt => opt.Ignore())
                 .ForMember(c => c.IdentityId, opt => opt.Ignore());

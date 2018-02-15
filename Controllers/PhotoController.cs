@@ -49,13 +49,13 @@ namespace NextSugarCat.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> UploadPhoto(int itemId, IFormFile file)
+        public async Task<IActionResult> UploadPhoto(int itemId,[FromForm] IFormFile file)
         {
             var menuItem = await menuRepository.GetMenuItem(itemId);
             if (menuItem == null)
                 return NotFound();
             if (file == null)
-                return BadRequest("Null file");
+                return BadRequest("Null file:" + file);
 
             if (file.Length == 0 || file.Length > 5 * 1024 * 1024) return BadRequest("File is too big");
 
@@ -79,15 +79,10 @@ namespace NextSugarCat.Controllers
             var photo = await photoRepository.GetPhotoAsync(itemId, photoId);
             if (photo == null)
                 return NotFound();
-            var filePath = Path.Combine(uploadsFolderPath, photo.FileName);
-            if (System.IO.File.Exists(filePath))
-            {
-                photoRepository.DeletePhoto(photo);
-                await unitOfWork.SaveChangesAsync();
-            }
-            else
-                return BadRequest();
-            return Ok(filePath + " Deleted");
+            photoRepository.DeletePhoto(photo);
+            await unitOfWork.SaveChangesAsync();
+
+            return Ok(photoId + " Deleted");
         }
     }
 }

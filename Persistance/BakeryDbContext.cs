@@ -14,7 +14,6 @@ namespace NextSugarCat.Persistance
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<FAQ> FAQ { get; set; }
-        public DbSet<Order> Orders { get; set; }
 
         public BakeryDbContext(DbContextOptions<BakeryDbContext> options) : base(options)
         {
@@ -25,7 +24,6 @@ namespace NextSugarCat.Persistance
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<MenuItemIngredient>().HasKey(mi =>
              new { mi.MenuItemId, mi.IngredientId });
-            modelBuilder.Entity<OrderMenuItem>().HasKey(oi => new { oi.MenuItemId, oi.OrderId });
         }
     }
 }

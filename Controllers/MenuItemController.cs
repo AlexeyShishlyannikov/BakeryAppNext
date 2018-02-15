@@ -5,6 +5,7 @@ using NextSugarCat.Controllers.Resources;
 using NextSugarCat.Core;
 using NextSugarCat.Core.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NextSugarCat.Controllers
@@ -55,6 +56,8 @@ namespace NextSugarCat.Controllers
             if (item == null)
                 return NotFound("Item with this id is not present in database");
 
+            item.Price.PricePerSet = OrderPrices(item);
+
             return Ok(mapper.Map<MenuItem, MenuItemDTO>(item));
         }
 
@@ -62,12 +65,16 @@ namespace NextSugarCat.Controllers
         public async Task<IActionResult> GetMenu()
         {
             var menu = await menuRepository.GetMenu();
-            
-            for(int i = 0; i< menu.Count; i++)
+
+            for (int i = 0; i < menu.Count; i++)
             {
-                var photo = menu[i].Photos[0];
-                menu[i].Photos.Clear();
-                menu[i].Photos.Add(photo);
+                if (menu[i].Photos.Count > 0)
+                {
+                    var photo = menu[i].Photos[0];
+                    menu[i].Photos.Clear();
+                    menu[i].Photos.Add(photo);
+                }
+                menu[i].Price.PricePerSet = OrderPrices(menu[i]);
             }
             return Ok(mapper.Map<IEnumerable<MenuItem>, IEnumerable<MenuItemDTO>>(menu));
         }
@@ -105,6 +112,15 @@ namespace NextSugarCat.Controllers
             var result = mapper.Map<MenuItem, MenuItemDTO>(item);
 
             return Ok(result);
+        }
+
+        private ICollection<ItemPricePerSet> OrderPrices(MenuItem item)
+        {
+            if (item.Type != "Cake")
+            {
+                return item.Price.PricePerSet.OrderBy(o => o.SetPrice).ToArray();
+            }
+            return null;
         }
     }
 }

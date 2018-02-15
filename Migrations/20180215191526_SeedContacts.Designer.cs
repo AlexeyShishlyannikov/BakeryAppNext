@@ -11,9 +11,10 @@ using System;
 namespace NextSugarCat.Migrations
 {
     [DbContext(typeof(BakeryDbContext))]
-    partial class BakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180215191526_SeedContacts")]
+    partial class SeedContacts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,6 +325,37 @@ namespace NextSugarCat.Migrations
                     b.ToTable("MenuItemPrices");
                 });
 
+            modelBuilder.Entity("NextSugarCat.Core.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<bool>("Delivered");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("NextSugarCat.Core.Models.OrderMenuItem", b =>
+                {
+                    b.Property<int>("MenuItemId");
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ItemSize");
+
+                    b.HasKey("MenuItemId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderMenuItems");
+                });
+
             modelBuilder.Entity("NextSugarCat.Core.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -424,6 +456,27 @@ namespace NextSugarCat.Migrations
                     b.HasOne("NextSugarCat.Core.Models.MenuItem")
                         .WithOne("Price")
                         .HasForeignKey("NextSugarCat.Core.Models.MenuItemPrice", "MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NextSugarCat.Core.Models.Order", b =>
+                {
+                    b.HasOne("NextSugarCat.Core.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NextSugarCat.Core.Models.OrderMenuItem", b =>
+                {
+                    b.HasOne("NextSugarCat.Core.Models.MenuItem", "MenuItem")
+                        .WithMany()
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("NextSugarCat.Core.Models.Order", "Order")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
