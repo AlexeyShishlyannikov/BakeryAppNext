@@ -8,7 +8,7 @@ namespace NextSugarCat.Controllers.Resources
 {
     public class MenuItemPriceDTO
     {
-        public int CakePricePerPound { get; set; }
+        public double CakePricePerPound { get; set; }
         public decimal CakePricePerKg
         {
             get

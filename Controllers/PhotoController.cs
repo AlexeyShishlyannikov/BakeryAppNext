@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NextSugarCat.Core;
@@ -47,7 +48,7 @@ namespace NextSugarCat.Controllers
             return Ok(photos);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> UploadPhoto(int itemId,[FromForm] IFormFile file)
         {
@@ -68,7 +69,7 @@ namespace NextSugarCat.Controllers
 
             return Ok(photo);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{photoId}")]
         public async Task<IActionResult> DeletePhoto(int itemId, int photoId)
         {

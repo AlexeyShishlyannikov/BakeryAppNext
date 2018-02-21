@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NextSugarCat.Controllers.Resources;
@@ -22,6 +23,7 @@ namespace BakeryWebApi.Controllers
             this.context = context;
             this.mapper = mapper;
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateContacts([FromBody] ContactsDTO contactsDTO)
         {

@@ -21,6 +21,14 @@ namespace NextSugarCat.Controllers
             this.context = context;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetIngredient(int id)
+        {
+            var ingredients = await context.Ingredients.SingleOrDefaultAsync(ing => ing.Id == id);
+
+            return Ok(mapper.Map<Ingredient, IngredientDTO>(ingredients));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetIngredients()
         {
@@ -28,7 +36,7 @@ namespace NextSugarCat.Controllers
 
             return Ok(Mapper.Map<List<Ingredient>, List<IngredientDTO>>(ingredients));
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostIngredient([FromBody] IngredientDTO ingredientResource)
         {
@@ -42,7 +50,7 @@ namespace NextSugarCat.Controllers
             ingredientResource.Id = ingredient.Id;
             return Ok(ingredientResource);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(int id)
         {
@@ -56,7 +64,7 @@ namespace NextSugarCat.Controllers
 
             return Ok(id);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateIngredient(int id, [FromBody] IngredientDTO ingredientResource)
         {

@@ -6,7 +6,7 @@ namespace NextSugarCat.Core.Models
     {
         public int Id { get; set; }
         public int MenuItemPriceId { get; set; }
-        public int SetPrice { get; set; }
+        public double SetPrice { get; set; }
         public int SetSize { get; set; }
     }
 }

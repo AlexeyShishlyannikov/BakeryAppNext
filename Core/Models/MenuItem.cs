@@ -13,7 +13,7 @@ namespace NextSugarCat.Core.Models
         [Required]
         public string Type { get; set; }
         public string Description { get; set; }
-        public int? MinimumWeight { get; set; }
+        public double? MinimumWeight { get; set; }
         public MenuItemPrice Price { get; set; }
         public List<Photo> Photos { get; set; }
         public List<MenuItemIngredient> Ingredients { get; set; }

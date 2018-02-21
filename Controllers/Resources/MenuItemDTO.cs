@@ -8,7 +8,7 @@ namespace NextSugarCat.Controllers.Resources
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public int? MinimumWeight { get; set; }
+        public double? MinimumWeight { get; set; }
         public string Description { get; set; }
         public object Price { get; set; }
         public ICollection<PhotoDTO> Photos { get; set; }

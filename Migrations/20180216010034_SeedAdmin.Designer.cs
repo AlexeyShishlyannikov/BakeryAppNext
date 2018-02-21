@@ -11,9 +11,10 @@ using System;
 namespace NextSugarCat.Migrations
 {
     [DbContext(typeof(BakeryDbContext))]
-    partial class BakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180216010034_SeedAdmin")]
+    partial class SeedAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,15 +185,17 @@ namespace NextSugarCat.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
-                    b.Property<string>("Email");
+                    b.Property<string>("FirstName");
 
                     b.Property<string>("IdentityId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Phone");
+
+                    b.Property<string>("Street");
+
+                    b.Property<string>("Town");
 
                     b.Property<int?>("ZipCode");
 
@@ -260,7 +263,7 @@ namespace NextSugarCat.Migrations
 
                     b.Property<int>("MenuItemPriceId");
 
-                    b.Property<double>("SetPrice");
+                    b.Property<int>("SetPrice");
 
                     b.Property<int>("SetSize");
 
@@ -278,7 +281,7 @@ namespace NextSugarCat.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<double?>("MinimumWeight");
+                    b.Property<int?>("MinimumWeight");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -310,7 +313,7 @@ namespace NextSugarCat.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double?>("CakePricePerPound");
+                    b.Property<int?>("CakePricePerPound");
 
                     b.Property<int>("MenuItemId");
 

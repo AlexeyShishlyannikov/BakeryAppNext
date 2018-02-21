@@ -11,9 +11,10 @@ using System;
 namespace NextSugarCat.Migrations
 {
     [DbContext(typeof(BakeryDbContext))]
-    partial class BakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180216023358_RegisterFormValues")]
+    partial class RegisterFormValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,8 +186,6 @@ namespace NextSugarCat.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
-
-                    b.Property<string>("Email");
 
                     b.Property<string>("IdentityId");
 

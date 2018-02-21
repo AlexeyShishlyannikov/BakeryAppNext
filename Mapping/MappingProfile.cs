@@ -44,8 +44,7 @@ namespace NextSugarCat.Mapping
                     }
                 });
 
-            CreateMap<Client, ClientDTO>()
-                .ForMember(dto => dto.Email, o => o.MapFrom(c => c.Identity.Email));
+            CreateMap<Client, ClientDTO>();
 
             // API : API Resource to Domain
             CreateMap<IngredientDTO, MenuItemIngredient>();

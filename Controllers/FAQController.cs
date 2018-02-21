@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NextSugarCat.Controllers.Resources;
@@ -35,7 +36,7 @@ namespace NextSugarCat.Controllers
 
             return Ok(result);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
         {
@@ -51,6 +52,7 @@ namespace NextSugarCat.Controllers
             return Ok(id + "DELETED");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostQuestion([FromBody] FAQDTO question)
         {

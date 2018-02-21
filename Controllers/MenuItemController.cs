@@ -29,7 +29,7 @@ namespace NextSugarCat.Controllers
             this.menuRepository = menuRepository;
             this.unitOfWork = unitOfWork;
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostItem([FromBody] MenuItemSaveDTO menuItemResource)
         {
@@ -79,7 +79,7 @@ namespace NextSugarCat.Controllers
             return Ok(mapper.Map<IEnumerable<MenuItem>, IEnumerable<MenuItemDTO>>(menu));
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)
         {
@@ -95,7 +95,7 @@ namespace NextSugarCat.Controllers
             return Ok(id + " DELETED");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItem(int id, [FromBody] MenuItemSaveDTO saveResource)
         {

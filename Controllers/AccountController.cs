@@ -79,6 +79,7 @@ namespace NextSugarCat.Controllers
             await userManager.AddToRoleAsync(user, "Client");
             var client = mapper.Map<RegisterDTO, Client>(model);
             client.IdentityId = user.Id;
+            client.Email = user.Email;
             await context.Clients.AddAsync(client);
             await context.SaveChangesAsync();
 

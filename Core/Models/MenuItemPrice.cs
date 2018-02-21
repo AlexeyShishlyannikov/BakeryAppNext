@@ -12,7 +12,7 @@ namespace NextSugarCat.Core.Models
     {
         public int Id { get; set; }
         public int MenuItemId { get; set; }
-        public int? CakePricePerPound { get; set; }
+        public double? CakePricePerPound { get; set; }
         public decimal CakePricePerKg
         {
             get => Math.Round((decimal)(CakePricePerPound / 0.45359237), 2);

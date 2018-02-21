@@ -43,12 +43,12 @@ namespace BakeryWebApi
             // Adding and Initializing Identity Framework
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
-                    options.Password.RequireDigit = true;
+                    options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 6;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
-                    options.Password.RequiredUniqueChars = 2;
+                    options.Password.RequiredUniqueChars = 1;
                 })
                 .AddEntityFrameworkStores<BakeryDbContext>()
                 .AddDefaultTokenProviders();
@@ -90,7 +90,11 @@ namespace BakeryWebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => 
+                builder
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+                .AllowAnyMethod());
 
             app.UseStaticFiles();
 

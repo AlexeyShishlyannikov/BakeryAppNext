@@ -29,7 +29,7 @@ namespace NextSugarCat.Controllers
             this.unitOfWork = unitOfWork;
         }
         
-        
+        [Authorize(Roles = "Client")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInfo(string id)
         {
@@ -56,6 +56,7 @@ namespace NextSugarCat.Controllers
             return Ok(clientsDto);
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfile(string id, [FromBody] ClientDTO clientResource)
         {

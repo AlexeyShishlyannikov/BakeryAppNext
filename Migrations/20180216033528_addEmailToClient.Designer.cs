@@ -11,9 +11,10 @@ using System;
 namespace NextSugarCat.Migrations
 {
     [DbContext(typeof(BakeryDbContext))]
-    partial class BakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180216033528_addEmailToClient")]
+    partial class addEmailToClient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
